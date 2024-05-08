@@ -61,7 +61,8 @@ gcloud compute instances create www1 \
 ```
 
 4. Crie uma regra de firewall para permitir o tráfego externo para as instâncias de VM:
-```gcloud compute firewall-rules create www-firewall-network-lb \
+```
+gcloud compute firewall-rules create www-firewall-network-lb \
     --target-tags network-lb-tag --allow tcp:80
 ```
     
