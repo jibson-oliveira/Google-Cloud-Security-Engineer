@@ -143,7 +143,8 @@ A resposta do comando curl alterna de forma aleatória entre as três instância
 ```
 
 2. Crie o grupo gerenciado de instâncias com base no modelo:
-```gcloud compute instance-groups managed create lb-backend-group \
+```
+  gcloud compute instance-groups managed create lb-backend-group \
    --template=lb-backend-template --size=2 --zone=Zone
 ```
 3. Crie a regra de firewall fw-allow-health-check.
