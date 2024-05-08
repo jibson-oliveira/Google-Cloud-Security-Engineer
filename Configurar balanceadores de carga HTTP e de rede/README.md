@@ -73,3 +73,30 @@
 
 
 <h4>Tarefa 3: configurar o serviço de balanceamento de carga</h4>
+
+1. Crie um endereço IP externo estático para o balanceador de carga.
+`gcloud compute addresses create network-lb-ip-1 --region Region`
+
+2. Adicione um recurso legado de verificação de integridade HTTP.
+
+`gcloud compute http-health-checks create basic-check`
+
+3. Adicione um pool de destino na mesma região de suas instâncias. Execute o comando a seguir para criar o pool de destino e usar a verificação de integridade necessária para o funcionamento do serviço:
+```gcloud compute target-pools create www-pool \
+  --region Region --http-health-check basic-check
+```
+
+
+4. Adicione as instâncias ao pool:
+```gcloud compute target-pools add-instances www-pool \
+    --instances www1,www2,www3
+```
+
+5. Adicione uma regra de encaminhamento:
+``` gcloud compute forwarding-rules create www-rule \
+    --region  Region \
+    --ports 80 \
+    --address network-lb-ip-1 \
+    --target-pool www-pool
+```
+
