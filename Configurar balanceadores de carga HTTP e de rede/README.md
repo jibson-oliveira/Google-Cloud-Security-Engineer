@@ -59,8 +59,9 @@
 
 4. Crie uma regra de firewall para permitir o tráfego externo para as instâncias de VM:
 ```gcloud compute firewall-rules create www-firewall-network-lb \
-    --target-tags network-lb-tag --allow tcp:80 ```
-
+    --target-tags network-lb-tag --allow tcp:80
+```
+    
 
 5. Execute o comando a seguir para listá-las. Os endereços IP aparecem na coluna EXTERNAL_IP:
 `gcloud compute instances list`
