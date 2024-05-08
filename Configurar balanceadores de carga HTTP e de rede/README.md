@@ -204,8 +204,11 @@ gcloud compute backend-services add-backend web-backend-service \
 > **Observação:** o mapa de URL é um recurso de configuração do Google Cloud usado para rotear solicitações para serviços de back-end ou buckets de back-end. Por exemplo, com um balanceador de carga HTTP(S) externo, é possível usar um único mapa de URL para rotear solicitações para destinos diferentes com base nas regras configuradas no mapa de URL:
 >
 > Solicitações para https://example.com/video vão para um serviço de back-end.
+>
 > Solicitações para https://example.com/audio vão para um serviço de back-end diferente.
+>
 > Solicitações para https://example.com/images vão para um bucket de back-end do Cloud Storage.
+>
 > As solicitações de qualquer outra combinação de host e caminho vão para um serviço de back-end padrão.
 
 9. Crie um proxy HTTP de destino para encaminhar as solicitações ao mapa de URLs:
@@ -225,3 +228,19 @@ gcloud compute forwarding-rules create http-content-rule \
 
 > **Observação:** A regra de encaminhamento e o endereço IP correspondente dela representam a configuração de front-end de um balanceador de carga do Google Cloud. Saiba mais sobre as noções básicas com o Guia de informações gerais das regras de encaminhamento. 
 
+
+
+<h4>Tarefa 6: como testar o tráfego enviado às instâncias</h4>
+
+1. No **Menu de navegação** do console do Google Cloud, acesse **Serviços de rede > Balanceamento de carga**.
+
+2. Clique no balanceador de carga que você acabou de criar (web-map-http).
+
+3. Na seção **Back-end**, clique no nome do back-end e confirme se as VMs estão **Íntegras**. Se não estiverem, espere alguns instantes e tente recarregar a página.
+
+4. Quando finalmente estiverem íntegras, teste o balanceador de carga com um navegador da Web. Acesse http://IP_ADDRESS/ e substitua IP_ADDRESS pelo endereço IP do balanceador de carga.
+
+
+Isso talvez leve de três a cinco minutos. Se a conexão falhar, aguarde um minuto e atualize o navegador.
+
+O navegador deve renderizar uma página que mostra o nome e a zona da instância que a forneceu, por exemplo, `Page served from: lb-backend-group-xxxx.`
