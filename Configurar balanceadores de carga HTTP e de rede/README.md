@@ -64,9 +64,11 @@
     
 
 5. Execute o comando a seguir para listá-las. Os endereços IP aparecem na coluna EXTERNAL_IP:
+
 `gcloud compute instances list`
 
 6. Verifique se cada instância está sendo executada com curl e substitua [IP_ADDRESS] pelo endereço IP de cada uma das VMs:
+
 `curl http://[IP_ADDRESS]`
 
 
