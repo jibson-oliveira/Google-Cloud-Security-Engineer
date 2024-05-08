@@ -100,3 +100,22 @@
     --target-pool www-pool
 ```
 
+<h4>Tarefa 4: como enviar tráfego às instâncias</h4>
+
+1. Execute o comando a seguir para visualizar o endereço IP externo da regra de encaminhamento www-rule usada pelo balanceador de carga:
+`gcloud compute forwarding-rules describe www-rule --region Region `
+
+2. Acesse o endereço IP externo:
+
+`IPADDRESS=$(gcloud compute forwarding-rules describe www-rule --region Region --format="json" | jq -r .IPAddress)`
+
+3. Mostre o endereço IP externo:
+`echo $IPADDRESS`
+
+4. Use o comando curl para acessar o endereço IP externo e substitua IP_ADDRESS por um endereço IP externo do comando anterior:
+`while true; do curl -m1 $IPADDRESS; done`
+
+A resposta do comando curl alterna de forma aleatória entre as três instâncias. Se ocorrer uma falha, aguarde cerca de 30 segundos até que a configuração esteja totalmente carregada e suas instâncias marcadas como íntegras antes de tentar novamente.
+
+5. Use Ctrl + C para interromper a execução do comando.
+
