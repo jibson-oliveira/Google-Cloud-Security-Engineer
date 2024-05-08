@@ -12,7 +12,8 @@
 
 1. Crie uma máquina virtual www1 na zona padrão usando o código a seguir:
 
-```  gcloud compute instances create www1 \
+``` 
+gcloud compute instances create www1 \
     --zone=Zone \
     --tags=network-lb-tag \
     --machine-type=e2-small \
@@ -28,7 +29,8 @@
 
 
 2. Crie uma máquina virtual www2 na zona padrão usando o código a seguir:
-```  gcloud compute instances create www2 \
+``` 
+ gcloud compute instances create www2 \
     --zone=Zone \
     --tags=network-lb-tag \
     --machine-type=e2-small \
@@ -43,7 +45,8 @@
 ```
 
 3. Crie uma máquina virtual www3 na zona padrão:
-```  gcloud compute instances create www3 \
+``` 
+ gcloud compute instances create www3 \
     --zone=Zone  \
     --tags=network-lb-tag \
     --machine-type=e2-small \
@@ -82,18 +85,21 @@
 `gcloud compute http-health-checks create basic-check`
 
 3. Adicione um pool de destino na mesma região de suas instâncias. Execute o comando a seguir para criar o pool de destino e usar a verificação de integridade necessária para o funcionamento do serviço:
-```gcloud compute target-pools create www-pool \
+```
+gcloud compute target-pools create www-pool \
   --region Region --http-health-check basic-check
 ```
 
 
 4. Adicione as instâncias ao pool:
-```gcloud compute target-pools add-instances www-pool \
+```
+gcloud compute target-pools add-instances www-pool \
     --instances www1,www2,www3
 ```
 
 5. Adicione uma regra de encaminhamento:
-``` gcloud compute forwarding-rules create www-rule \
+``` 
+gcloud compute forwarding-rules create www-rule \
     --region  Region \
     --ports 80 \
     --address network-lb-ip-1 \
@@ -122,7 +128,8 @@ A resposta do comando curl alterna de forma aleatória entre as três instância
 <h4>Tarefa 5: criar um balanceador de carga HTTP</h4>
 
 1. Crie primeiro o modelo do balanceador de carga:
-```gcloud compute instance-templates create lb-backend-template \
+```
+gcloud compute instance-templates create lb-backend-template \
    --region=Region \
    --network=default \
    --subnet=default \
@@ -148,7 +155,8 @@ A resposta do comando curl alterna de forma aleatória entre as três instância
    --template=lb-backend-template --size=2 --zone=Zone
 ```
 3. Crie a regra de firewall fw-allow-health-check.
-```gcloud compute firewall-rules create fw-allow-health-check \
+```
+gcloud compute firewall-rules create fw-allow-health-check \
   --network=default \
   --action=allow \
   --direction=ingress \
@@ -158,7 +166,8 @@ A resposta do comando curl alterna de forma aleatória entre as três instância
 ```
 
 4. Agora que as instâncias estão funcionando, configure um endereço IP externo, estático e global que seus clientes podem usar para acessar o balanceador de carga:
-```gcloud compute addresses create lb-ipv4-1 \
+```
+gcloud compute addresses create lb-ipv4-1 \
   --ip-version=IPV4 \
   --global
 ```
